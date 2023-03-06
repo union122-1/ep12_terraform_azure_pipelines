@@ -2,7 +2,6 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-
 trigger: none
 pr: none
 
@@ -14,8 +13,22 @@ stages:
   - stage: terraform_validate
     displayName: terraform validate and init
     jobs:
-      - job:
-        steps:
+    - job: 
+      steps:
+      - task: TerraformInstaller@1
+        inputs:
+          terraformVersion: 'latest'
+           
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    commandOptions: '-var-file="dev/main.tf"'
+    backendServiceArm: 'Azure subscription 1(eff48441-5a25-4cfc-a9f4-4aa40b5b4148)'
+    backendAzureRmResourceGroupName: 'Dev-session-01'
+    backendAzureRmStorageAccountName: 'storagetfstate1'
+    backendAzureRmContainerName: 'state1'
+    backendAzureRmKey: '- task: TerraformTaskV4@4   inputs:     provider: ''azurerm''     command: ''init''     commandOptions: ''-var-file="dev/main/tf"''     backendServiceArm: ''Azure subscription 1(eff48441-5a25-4cfc-a9f4-4aa40b5b4148)''     backendAzureRmResourceGroupName: ''Dev-session-01''     backendAzureRmStorageAccountName: ''storagetfstate1''     backendAzureRmContainerName: ''state1''     backendAzureRmKey: ''sp=racwdli&st=2023-03-06T15:09:38Z&se=2023-04-30T22:09:38Z&spr=https&sv=2021-06-08&sr=c&sig=5IwwY7E21N2rbs8%2FiUhRUoVANhl%2BHjUKjAFVdQeADss%3D'''
 
 
 
