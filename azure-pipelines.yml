@@ -18,14 +18,17 @@ stages:
       - task: TerraformInstaller@1
         inputs:
           terraformVersion: 'latest'
-          
-- task: TerraformTaskV4@4
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    commandOptions: '-var-file="dev/main.tf"'
-    backendServiceArm: 'Azure subscription 1(eff48441-5a25-4cfc-a9f4-4aa40b5b4148)'
-    backendAzureRmResourceGroupName: 'Dev-session-01'
-    backendAzureRmStorageAccountName: 'storagetfstate1'
-    backendAzureRmContainerName: 'state1'
-    backendAzureRmKey: 'z6bwW9tCqZQngHpFLEA+rVjJaZTxDvfg9emkTxdEWpbnYfRzbJ8ELKsIWTy/KcW3dJt+yRFO12Er+AStCBsUxw=='
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          commandOptions: '-var-file:"dev/main.tfvars"'
+          backendServiceArm: 'Azure subscription 1(eff48441-5a25-4cfc-a9f4-4aa40b5b4148)'
+          backendAzureRmResourceGroupName: 'Dev-session-01'
+          backendAzureRmStorageAccountName: 'storagetfstate1'
+          backendAzureRmContainerName: 'state1'
+          backendAzureRmKey: 'dev-tfstate'
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
